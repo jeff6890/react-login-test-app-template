@@ -1,61 +1,105 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { ReactComponent as ReactLogo } from './assets/react.svg';
-import { ReactComponent as ViteLogo } from './assets/vite.svg';
-import { ReactComponent as TypescriptLogo } from './assets/typescript.svg';
-import { ReactComponent as ScssLogo } from './assets/scss.svg';
 import styles from './App.module.scss';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link,
+    Navigate,
+} from 'react-router-dom';
+import Userfront, { SignupForm, LoginForm, PasswordResetForm, LogoutButton } from "@userfront/toolkit/react";
+
+Userfront.init("7n88yrpn");
 
 function App() {
-    const [count, setCount] = useState(0);
 
     return (
-        <div className={styles.App}>
+        <Router>
             <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <ViteLogo
-                        height="6em"
-                        width="6em"
-                        className={classNames(styles.logo)}
-                        title="Vite logo"
-                    />
-                </a>
-                <a href="https://reactjs.org" target="_blank">
-                    <ReactLogo
-                        height="6em"
-                        width="6em"
-                        className={classNames(styles.logo, styles.react)}
-                        title="React logo"
-                    />
-                </a>
-                <a href="https://www.typescriptlang.org/" target="_blank">
-                    <TypescriptLogo
-                        height="6em"
-                        width="6em"
-                        className={classNames(styles.logo, styles.ts)}
-                        title="Typescript logo"
-                    />
-                </a>
-                <a href="https://sass-lang.com/" target="_blank">
-                    <ScssLogo
-                        height="6em"
-                        width="6em"
-                        className={classNames(styles.logo, styles.scss)}
-                        title="SCSS logo"
-                    />
-                </a>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to='/'>Home</Link>
+                        </li>
+                        <li>
+                            <Link to='login'>Login</Link>
+                        </li>
+                        <li>
+                            <Link to='reset'>Password Reset</Link>
+                        </li>
+                        <li>
+                            <Link to='dashboard'>Dashboard</Link>
+                        </li>
+                    </ul>
+                </nav>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/reset" element={<PasswordReset />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                </Routes>
             </div>
-            <div className={styles.card}>
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className={styles['read-the-docs']}>
-                Click on the Vite and React logos to learn more
-            </p>
-        </div>
+        </Router>
     );
 }
+
+const Home = () => (
+    <div>
+        <h2>Home</h2>
+        <SignupForm theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+    </div>
+);
+const Login = () => (
+    <div>
+        <h2>Login</h2>
+        <LoginForm theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+    </div>
+);
+const PasswordReset = () => (
+    <div>
+        <h2>PasswordReset</h2>
+        <PasswordResetForm theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+    </div>
+);
+const Dashboard = () => {
+
+    const [privateData, setPrivateData] = useState<{ someSecretData: string }>();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const result = await fetch('http://localhost:3010/data', {
+                    headers: {
+                        Authorization: `Bearer ${Userfront.accessToken()}`
+                    }
+                })
+                .then(response => response.json());
+                setPrivateData(result);
+            } catch(error) {
+                console.log(error);
+            }
+        })();
+
+    }, [])
+
+    if (!Userfront.accessToken()) {
+        return (
+            <Navigate to={{ pathname: '/login' }}/>
+        );
+    }
+
+    // console.log(Userfront);
+    const useData = JSON.parse(atob(Userfront.accessToken().split('.')[1]));
+
+    return <div>
+        <h2>Dashboard</h2>
+        <h3>User Data</h3>
+        <pre>{JSON.stringify(useData, null, 2)}</pre>
+        <h3>Private Data</h3>
+        <pre>{JSON.stringify(privateData, null, 2)}</pre>
+        <LogoutButton theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+    </div>
+};
 
 export default App;

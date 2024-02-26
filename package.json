@@ -9,13 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@userfront/react": "^0.3.4",
+    "@userfront/toolkit": "^1.0.6",
     "classnames": "^2.5.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
+    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.2.1",
     "@wixc3/react-board": "^2.4.0",
     "sass": "^1.70.0",
