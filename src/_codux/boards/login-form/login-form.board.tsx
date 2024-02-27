@@ -6,7 +6,8 @@ export default createBoard({
     Board: () => <LoginForm />,
     isSnippet: true,
     environmentProps: {
-        canvasHeight: 391,
-        canvasWidth: 337,
+        canvasHeight: 617,
+        canvasWidth: 983,
+        windowHeight: 611,
     },
 });
