@@ -8,7 +8,9 @@ import {
     Link,
     Navigate,
 } from 'react-router-dom';
-import Userfront, { SignupForm, LoginForm, PasswordResetForm, LogoutButton } from "@userfront/toolkit/react";
+import Userfront, { SignupForm, PasswordResetForm, LogoutButton } from "@userfront/toolkit/react";
+// import Userfront, { SignupForm, LoginForm, PasswordResetForm, LogoutButton } from "@userfront/toolkit/react";
+import { LoginForm } from './components/login-form/login-form';
 
 Userfront.init("7n88yrpn");
 
@@ -53,13 +55,13 @@ const Home = () => (
 const Login = () => (
     <div>
         <h2>Login</h2>
-        <LoginForm theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+        <LoginForm />
     </div>
 );
 const PasswordReset = () => (
     <div>
         <h2>PasswordReset</h2>
-        <PasswordResetForm theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+        <PasswordResetForm />
     </div>
 );
 const Dashboard = () => {
