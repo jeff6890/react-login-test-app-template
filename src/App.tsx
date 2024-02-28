@@ -8,9 +8,10 @@ import {
     Link,
     Navigate,
 } from 'react-router-dom';
-import Userfront, { SignupForm, PasswordResetForm, LogoutButton } from "@userfront/toolkit/react";
+import Userfront, { SignupForm, LogoutButton } from "@userfront/toolkit/react";
 // import Userfront, { SignupForm, LoginForm, PasswordResetForm, LogoutButton } from "@userfront/toolkit/react";
 import { LoginForm } from './components/login-form/login-form';
+import { PasswordResetForm } from './components/password-reset-form/password-reset-form';
 
 Userfront.init("7n88yrpn");
 
@@ -92,6 +93,7 @@ const Dashboard = () => {
     }
 
     // console.log(Userfront);
+    console.log(Userfront.accessToken());
     const useData = JSON.parse(atob(Userfront.accessToken().split('.')[1]));
 
     return <div>
