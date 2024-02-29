@@ -8,10 +8,11 @@ import {
     Link,
     Navigate,
 } from 'react-router-dom';
-import Userfront, { SignupForm, LogoutButton } from "@userfront/toolkit/react";
+import Userfront, { LogoutButton } from "@userfront/toolkit/react";
 // import Userfront, { SignupForm, LoginForm, PasswordResetForm, LogoutButton } from "@userfront/toolkit/react";
 import { LoginForm } from './components/login-form/login-form';
 import { PasswordResetForm } from './components/password-reset-form/password-reset-form';
+import { SignupForm } from './components/signup-form/signup-form';
 
 Userfront.init("7n88yrpn");
 
