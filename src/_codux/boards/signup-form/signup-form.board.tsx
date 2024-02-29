@@ -5,4 +5,8 @@ export default createBoard({
     name: 'SignupForm',
     Board: () => <SignupForm />,
     isSnippet: true,
+    environmentProps: {
+        canvasWidth: 780,
+        canvasHeight: 455,
+    },
 });
