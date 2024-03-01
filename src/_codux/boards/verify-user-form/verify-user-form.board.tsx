@@ -6,7 +6,8 @@ export default createBoard({
     Board: () => <VerifyUserForm />,
     isSnippet: true,
     environmentProps: {
-        canvasHeight: 570,
-        canvasWidth: 697,
+        canvasHeight: 688,
+        canvasWidth: 927,
+        windowHeight: 808,
     },
 });
