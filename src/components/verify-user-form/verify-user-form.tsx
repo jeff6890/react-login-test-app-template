@@ -9,9 +9,17 @@ Userfront.init("7n88yrpn");
 export interface VerifyUserFormProps {
     className?: string;
     verification: boolean;
+    habboName: string;
 }
 
-export class VerifyUserForm extends React.Component {
+export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
+    habboUsername: string;
+    habboMottoVerifyCode: string;
+    alertMessage: string;
+    currentMotto: string;
+    verification: boolean;
+    habboName: string;
+}> {
     constructor(props: VerifyUserFormProps) {
         super(props);
         this.state = {
@@ -19,7 +27,8 @@ export class VerifyUserForm extends React.Component {
             habboMottoVerifyCode: '',
             alertMessage: '',
             currentMotto: '',
-            verification: '',
+            verification: false,
+            habboName: '',
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -32,7 +41,7 @@ export class VerifyUserForm extends React.Component {
         const target = event.target as HTMLInputElement;
         this.setState({
             [target.name]: target.value,
-        });
+        } as Pick<this['state'], keyof this['state']>);
     }
 
     async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -47,8 +56,12 @@ export class VerifyUserForm extends React.Component {
 
         if (HabboUser.motto === this.state.habboMottoVerifyCode) {
 
-            this.setAlertMessage('Sucessfully Verified!');
             this.setState({ verification: true });
+
+            const newHabboName = HabboUser.name || '';
+            this.setState({ habboName: newHabboName }, () => {
+                // console.log(this.state.habboName);
+            });
 
 
         }
@@ -174,16 +187,16 @@ export class VerifyUserForm extends React.Component {
         } else {
             return (
                 <>
-                    
-                    <SignupForm />
-                    
+
+                    <SignupForm {...{ habboName: this.state.habboName } as SignupFormProps} />
+
                 </>
             );
         }
     }
 }
 
-class Alert extends React.Component<{ message: string; motto: string}> {
+class Alert extends React.Component<{ message: string; motto: string }> {
     render() {
         if (!this.props.message) return null;
         if (!this.props.motto) return null;

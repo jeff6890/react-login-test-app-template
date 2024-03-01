@@ -5,6 +5,7 @@ import Userfront from '@userfront/toolkit/react';
 
 export interface SignupFormProps {
   className?: string;
+  habboName: string;
 }
 
 // Define the Signup form component
@@ -18,6 +19,7 @@ export class SignupForm extends React.Component {
       password: '',
       passwordVerify: '',
       alertMessage: '',
+      habboName: props.habboName,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -46,9 +48,9 @@ export class SignupForm extends React.Component {
     // Call Userfront.signup()
     Userfront.signup({
       method: 'password',
-      email: 'Playboy@Playboy.com',
-      name: 'Playboy',
-      username: 'Playboy',
+      email: `${this.state.habboName}@HabCloud.com`,
+      name: this.state.habboName,
+      username: this.state.habboName,
       password: this.state.password,
       data: {
         accountName: this.state.accountName,
@@ -56,8 +58,11 @@ export class SignupForm extends React.Component {
     }).catch((error: { message: string }) => {
       this.setAlertMessage(error.message);
     });
-  }
 
+    console.log(this.state.habboName);
+  }
+  
+  
   setAlertMessage(message: string) {
     this.setState({ alertMessage: message });
   }
@@ -72,9 +77,9 @@ export class SignupForm extends React.Component {
               <h1>Sign Up</h1>
               <div className={styles['input-box']}>
                 <input
-                  name="accountName"
+                  name="habboName"
                   type="text"
-                  value="hello"
+                  value={this.state.habboName}
                   onChange={this.handleInputChange}
                 />
                 <svg
@@ -129,6 +134,24 @@ export class SignupForm extends React.Component {
                 Sign up
               </button>
             </form>
+          </div>
+          <div className={styles.success}>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                style={{ fill: 'rgba(255, 255, 255, 1)' }}
+              >
+                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
+              </svg>
+            </div>
+            <div>
+              Verification Successful, you can now create password only for HabCloud. Your HabCloud will remain the same as your Habbo username.
+            </div>
+            <div>{this.state.habboName}</div>
           </div>
         </div>
         {/* <SSOButton provider="google" /> */}
