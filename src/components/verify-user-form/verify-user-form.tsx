@@ -14,6 +14,7 @@ export class VerifyUserForm extends React.Component {
             habboUsername: '',
             habboMottoVerifyCode: '',
             alertMessage: '',
+            currentMotto: '',
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -44,8 +45,10 @@ export class VerifyUserForm extends React.Component {
         }
 
         if (HabboUser.motto !== this.state.habboMottoVerifyCode) {
-
-            return this.setAlertMessage(`Error: Your motto doesn't have the verification code. Current Motto: ${HabboUser.motto}`);
+            return this.setAlertMessage(
+                `Invalid: Your Habbo motto doesn't match the verification code below.`,
+                `Your current Habbo motto: ${HabboUser.motto}`,
+            );
         }
 
         // // Call Userfront.resetPassword()
@@ -57,8 +60,9 @@ export class VerifyUserForm extends React.Component {
         // });
     }
 
-    setAlertMessage(message: string = '') {
+    setAlertMessage(message: string = '', motto: string = '') {
         this.setState({ alertMessage: message });
+        this.setState({ currentMotto: motto });
     }
 
     generateHabCloudVerifyCode() {
@@ -68,13 +72,14 @@ export class VerifyUserForm extends React.Component {
 
     async HabboAPIVerifyUser(username: string) {
         try {
-            const response = await fetch(`https://www.habbo.com/api/public/Users?name=${username.trim()}`);
+            const response = await fetch(
+                `https://www.habbo.com/api/public/Users?name=${username.trim()}`,
+            );
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');
             }
             const responseData = await response.json();
             return responseData;
-
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -88,7 +93,7 @@ export class VerifyUserForm extends React.Component {
         return (
             <div className={styles.root}>
                 <div className={styles.login}>
-                    <Alert message={this.state.alertMessage} />
+                    <Alert message={this.state.alertMessage} motto={this.state.currentMotto} />
                     <div className={styles.wrapper}>
                         <form onSubmit={this.handleSubmit}>
                             <h1>Verify Habbo User</h1>
@@ -141,9 +146,43 @@ export class VerifyUserForm extends React.Component {
     }
 }
 
-class Alert extends React.Component<{ message: string }> {
+class Alert extends React.Component<{ message: string; motto: string }> {
     render() {
         if (!this.props.message) return null;
-        return <div id="alert">{this.props.message}</div>;
+        if (!this.props.motto) return null;
+        return (
+            <div id="alert">
+                <div className={styles.alert}>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            style={{ fill: 'rgba(255, 255, 255, 1)' }}
+                        >
+                            <path d="M20.707 15.293 19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path>
+                            <path d="M8.037 10h7.926v2H8.037z"></path>
+                        </svg>
+                    </div>
+                    <div>{this.props.message}</div>
+                </div>
+                <div className={styles.alert}>
+                    <div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            style={{ fill: 'rgba(255, 255, 255, 1)' }}
+                        >
+                            <path d="M20.707 15.293 19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path>
+                            <path d="M8.037 10h7.926v2H8.037z"></path>
+                        </svg>
+                    </div>
+                    <div>{this.props.motto}</div>
+                </div>
+            </div>
+        );
     }
 }
