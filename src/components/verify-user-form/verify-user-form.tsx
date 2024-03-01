@@ -113,7 +113,7 @@ export class VerifyUserForm extends React.Component {
                                     viewBox="0 0 24 24"
                                     style={{ fill: 'rgba(255, 255, 255, 1)' }}
                                 >
-                                    <path d="M20.29 8.29 16 12.58l-1.3-1.29-1.41 1.42 2.7 2.7 5.72-5.7zM4 8a3.91 3.91 0 0 0 4 4 3.91 3.91 0 0 0 4-4 3.91 3.91 0 0 0-4-4 3.91 3.91 0 0 0-4 4zm6 0a1.91 1.91 0 0 1-2 2 1.91 1.91 0 0 1-2-2 1.91 1.91 0 0 1 2-2 1.91 1.91 0 0 1 2 2zM4 18a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3v1h2v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v1h2z"></path>
+                                    <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
                                 </svg>
                             </div>
                             <div className={styles['input-box']}>
@@ -139,6 +139,15 @@ export class VerifyUserForm extends React.Component {
                                 Verify
                             </button>
                         </form>
+                    </div>
+                    <div className={styles.info}>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(255, 255, 255, 1)' }}>
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
+                            </svg>
+                        </div>
+                        <div>To verify, type your Habbo username and copy/paste the code above into your Habbo motto to sign up.</div>
                     </div>
                 </div>
             </div>
