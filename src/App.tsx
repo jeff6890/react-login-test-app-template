@@ -51,7 +51,7 @@ function App() {
 const Home = () => (
     <div>
         <h2>Home</h2>
-        <SignupForm theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+        <SignupForm />
     </div>
 );
 const Login = () => (
