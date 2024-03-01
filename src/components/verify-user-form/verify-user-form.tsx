@@ -29,22 +29,32 @@ export class VerifyUserForm extends React.Component {
         });
     }
 
-    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         this.setAlertMessage('');
 
-        if (this.state.password !== this.state.passwordVerify) {
-            return this.setAlertMessage('Passwords must match');
+        const HabboUser = await this.HabboAPIVerifyUser(this.state.habboUsername);
+
+        console.log(HabboUser.motto);
+        console.log(HabboUser);
+
+        if (HabboUser.motto === this.state.habboMottoVerifyCode) {
+            return this.setAlertMessage('Sucessfully Verified!');
         }
 
-        // Call Userfront.resetPassword()
-        // Assuming Userfront is defined elsewhere
-        Userfront.resetPassword({
-            password: this.state.password,
-        }).catch((error: { message: string }) => {
-            this.setAlertMessage(error.message);
-        });
+        if (HabboUser.motto !== this.state.habboMottoVerifyCode) {
+
+            return this.setAlertMessage(`Error: Your motto doesn't have the verification code. Current Motto: ${HabboUser.motto}`);
+        }
+
+        // // Call Userfront.resetPassword()
+        // // Assuming Userfront is defined elsewhere
+        // Userfront.resetPassword({
+        //     password: this.state.password,
+        // }).catch((error: { message: string }) => {
+        //     this.setAlertMessage(error.message);
+        // });
     }
 
     setAlertMessage(message: string = '') {
@@ -54,6 +64,20 @@ export class VerifyUserForm extends React.Component {
     generateHabCloudVerifyCode() {
         const randomNumber = Math.floor(Math.random() * 900) + 100;
         return `HabCloud-${randomNumber}`;
+    }
+
+    async HabboAPIVerifyUser(username: string) {
+        try {
+            const response = await fetch(`https://www.habbo.com/api/public/Users?name=${username.trim()}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            const responseData = await response.json();
+            return responseData;
+
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
     }
 
     componentDidMount() {
