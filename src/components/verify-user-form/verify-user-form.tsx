@@ -178,7 +178,7 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
                             </div>
                             <div>
                                 To verify, type your Habbo username and copy/paste the code above into
-                                your Habbo motto to sign up.
+                                your Habbo motto to sign up to HabCloud.
                             </div>
                         </div>
                     </div>
