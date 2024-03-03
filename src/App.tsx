@@ -13,6 +13,7 @@ import Userfront, { LogoutButton } from "@userfront/toolkit/react";
 import { LoginForm } from './components/login-form/login-form';
 import { PasswordResetForm } from './components/password-reset-form/password-reset-form';
 import { SignupForm } from './components/signup-form/signup-form';
+import { VerifyUserForm } from './components/verify-user-form/verify-user-form';
 
 Userfront.init("7n88yrpn");
 
@@ -51,7 +52,7 @@ function App() {
 const Home = () => (
     <div>
         <h2>Home</h2>
-        <SignupForm />
+        <VerifyUserForm signUp={true} />
     </div>
 );
 const Login = () => (
@@ -63,7 +64,7 @@ const Login = () => (
 const PasswordReset = () => (
     <div>
         <h2>PasswordReset</h2>
-        <PasswordResetForm />
+        <VerifyUserForm passwordReset={true} />
     </div>
 );
 const Dashboard = () => {

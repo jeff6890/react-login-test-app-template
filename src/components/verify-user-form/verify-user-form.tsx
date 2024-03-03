@@ -3,13 +3,16 @@ import classNames from 'classnames';
 import styles from './verify-user-form.module.scss';
 import Userfront from '@userfront/toolkit/react';
 import { SignupForm } from '../signup-form/signup-form';
+import { PasswordResetForm } from '../password-reset-form/password-reset-form';
 
 Userfront.init("7n88yrpn");
 
 export interface VerifyUserFormProps {
     className?: string;
-    verification: boolean;
-    habboName: string;
+    verification?: boolean;
+    habboName?: string;
+    passwordReset?: boolean;
+    signUp?: boolean;
 }
 
 export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
@@ -19,6 +22,8 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
     currentMotto: string;
     verification: boolean;
     habboName: string;
+    passwordReset?: boolean;
+    signUp?: boolean;
 }> {
     constructor(props: VerifyUserFormProps) {
         super(props);
@@ -29,6 +34,8 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
             currentMotto: '',
             verification: false,
             habboName: '',
+            signUp: props.signUp,
+            passwordReset: props.passwordReset,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -73,13 +80,7 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
             );
         }
 
-        // // Call Userfront.resetPassword()
-        // // Assuming Userfront is defined elsewhere
-        // Userfront.resetPassword({
-        //     password: this.state.password,
-        // }).catch((error: { message: string }) => {
-        //     this.setAlertMessage(error.message);
-        // });
+
     }
 
     setAlertMessage(message: string = '', motto: string = '') {
@@ -163,28 +164,51 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
                                 </button>
                             </form>
                         </div>
-                        <div className={styles.info}>
-                            <div>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    style={{ fill: 'rgba(255, 255, 255, 1)' }}
-                                >
-                                    <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
-                                    <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
-                                </svg>
+                        {this.state.signUp && (
+                            <div className={styles.info}>
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        style={{ fill: 'rgba(255, 255, 255, 1)' }}
+                                    >
+                                        <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                        <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    To verify, please type your Habbo username and copy/paste the code above into
+                                    your Habbo motto to sign up to HabCloud.
+                                </div>
                             </div>
-                            <div>
-                                To verify, type your Habbo username and copy/paste the code above into
-                                your Habbo motto to sign up to HabCloud.
+                        )}
+                        {this.state.passwordReset && (
+                            <div className={styles.info}>
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        style={{ fill: 'rgba(255, 255, 255, 1)' }}
+                                    >
+                                        <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                        <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    To verify, please type your Habbo username and copy/paste the code above into
+                                    your Habbo motto to reset your HabCloud password.
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             );
-        } else {
+        }
+        if (this.state.verification && this.state.signUp) {
             return (
                 <>
 
@@ -193,6 +217,16 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
                 </>
             );
         }
+        if (this.state.verification && this.state.passwordReset) {
+            return (
+                <>
+
+                    <PasswordResetForm {...{ habboName: this.state.habboName } as PasswordResetFormProps} />
+
+                </>
+            );
+        }
+
     }
 }
 

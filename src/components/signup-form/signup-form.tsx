@@ -5,7 +5,7 @@ import Userfront from '@userfront/toolkit/react';
 
 export interface SignupFormProps {
   className?: string;
-  habboName: string;
+  habboName?: string;
 }
 
 // Define the Signup form component
