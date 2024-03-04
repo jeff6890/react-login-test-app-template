@@ -51,7 +51,7 @@ function App() {
 
 const Home = () => (
     <div>
-        <h2>Home</h2>
+        <h2>Sign Up</h2>
         <VerifyUserForm signUp={true} />
     </div>
 );

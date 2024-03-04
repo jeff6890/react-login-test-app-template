@@ -59,27 +59,37 @@ export class PasswordResetForm extends React.Component {
     }
 
     async generateUserLinkAPI() {
-        const payload = {
-            email: `${this.state.habboName}@HabCloud.com`,
-            options: {
-                "type": "reset",
+        try {
+            const payload = {
+                email: `${this.state.habboName}@HabCloud.com`,
+                options: {
+                    "type": "reset",
+                }
+            };
+
+            const response = await fetch("https://api.userfront.com/v0/tenants/7n88yrpn/auth/link/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer uf_test_admin_7n88yrpn_0116e54a678649be242772c0c3da558b"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate user link');
             }
-        };
 
-        const response = await fetch("https://api.userfront.com/v0/tenants/7n88yrpn/auth/link/generate", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer uf_test_admin_7n88yrpn_0116e54a678649be242772c0c3da558b"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        response.json().then(data => {
-            this.setState({ userLinkInfo: data });
-            this.setState({ token: this.state.userLinkInfo.result.token });
-            this.setState({ uuid: this.state.userLinkInfo.result.uuid });
-        });
+            const data = await response.json();
+            this.setState({ userLinkInfo: data }, () => {
+                if (this.state.userLinkInfo && this.state.userLinkInfo.result) {
+                    this.setState({ token: this.state.userLinkInfo.result.token });
+                    this.setState({ uuid: this.state.userLinkInfo.result.uuid });
+                }
+            });
+        } catch (error) {
+            console.error('Error generating user link:', error);
+        }
     }
 
     componentDidMount() {

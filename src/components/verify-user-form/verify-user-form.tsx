@@ -58,8 +58,6 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
 
         const HabboUser = await this.HabboAPIVerifyUser(this.state.habboUsername);
 
-        console.log(HabboUser.motto);
-        console.log(HabboUser);
 
         if (HabboUser.motto === this.state.habboMottoVerifyCode) {
 
