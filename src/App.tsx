@@ -36,6 +36,9 @@ function App() {
                         <li>
                             <Link to='dashboard'>Dashboard</Link>
                         </li>
+                        <li>
+                            <Link to='changeusername'>Change Username</Link>
+                        </li>
                     </ul>
                 </nav>
                 <Routes>
@@ -43,6 +46,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/reset" element={<PasswordReset />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/changeusername" element={<ChangeUsername />} />
                 </Routes>
             </div>
         </Router>
@@ -67,6 +71,12 @@ const PasswordReset = () => (
         <VerifyUserForm passwordReset={true} />
     </div>
 );
+const ChangeUsername = () => (
+    <div>
+        <h2>Change Username</h2>
+        <VerifyUserForm changeUsername={true} />
+    </div>
+);
 const Dashboard = () => {
 
     const [privateData, setPrivateData] = useState<{ someSecretData: string }>();
@@ -79,9 +89,9 @@ const Dashboard = () => {
                         Authorization: `Bearer ${Userfront.accessToken()}`
                     }
                 })
-                .then(response => response.json());
+                    .then(response => response.json());
                 setPrivateData(result);
-            } catch(error) {
+            } catch (error) {
                 console.log(error);
             }
         })();
@@ -90,7 +100,7 @@ const Dashboard = () => {
 
     if (!Userfront.accessToken()) {
         return (
-            <Navigate to={{ pathname: '/login' }}/>
+            <Navigate to={{ pathname: '/login' }} />
         );
     }
 
@@ -104,7 +114,7 @@ const Dashboard = () => {
         <pre>{JSON.stringify(useData, null, 2)}</pre>
         <h3>Private Data</h3>
         <pre>{JSON.stringify(privateData, null, 2)}</pre>
-        <LogoutButton theme={{"colors":{"light":"#ffffff","dark":"#263dbf","accent":"#13a0ff","lightBackground":"#fdfdfd"},"colorScheme":"light","fontFamily":"Avenir, Helvetica, Arial, sans-serif","size":"default","extras":{}}} />
+        <LogoutButton theme={{ "colors": { "light": "#ffffff", "dark": "#263dbf", "accent": "#13a0ff", "lightBackground": "#fdfdfd" }, "colorScheme": "light", "fontFamily": "Avenir, Helvetica, Arial, sans-serif", "size": "default", "extras": {} }} />
     </div>
 };
 

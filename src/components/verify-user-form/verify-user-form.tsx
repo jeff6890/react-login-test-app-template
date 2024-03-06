@@ -4,6 +4,7 @@ import styles from './verify-user-form.module.scss';
 import Userfront from '@userfront/toolkit/react';
 import { SignupForm } from '../signup-form/signup-form';
 import { PasswordResetForm } from '../password-reset-form/password-reset-form';
+import { ChangeUsernameForm } from '../change-username-form/change-username-form';
 
 Userfront.init("7n88yrpn");
 
@@ -11,8 +12,9 @@ export interface VerifyUserFormProps {
     className?: string;
     verification?: boolean;
     habboName?: string;
-    passwordReset?: boolean;
     signUp?: boolean;
+    changeUsername?: boolean;
+    passwordReset?: boolean;
 }
 
 export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
@@ -22,8 +24,9 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
     currentMotto: string;
     verification: boolean;
     habboName: string;
-    passwordReset?: boolean;
     signUp?: boolean;
+    changeUsername?: boolean;
+    passwordReset?: boolean;
 }> {
     constructor(props: VerifyUserFormProps) {
         super(props);
@@ -35,6 +38,7 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
             verification: false,
             habboName: '',
             signUp: props.signUp,
+            changeUsername: props.changeUsername,
             passwordReset: props.passwordReset,
         };
 
@@ -56,34 +60,40 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
 
         this.setAlertMessage('');
 
-        const HabboUser = await this.HabboAPIVerifyUser(this.state.habboUsername);
+        try {
+            const HabboUser = await this.HabboAPIVerifyUser(this.state.habboUsername);
 
+            if (!HabboUser) {
+                return this.setAlertMessage(
+                    `Invalid: Habbo user not found.`,
+                    `Please check your Habbo username.`,
+                );
+            }
 
-        if (HabboUser.motto === this.state.habboMottoVerifyCode) {
+            if (HabboUser && HabboUser.motto === this.state.habboMottoVerifyCode) {
 
-            this.setState({ verification: true });
+                this.setState({ verification: true });
 
-            const newHabboName = HabboUser.name || '';
-            this.setState({ habboName: newHabboName }, () => {
-                // console.log(this.state.habboName);
-            });
+                const newHabboName = HabboUser.name || '';
+                this.setState({ habboName: newHabboName }, () => {
+                    // console.log(this.state.habboName);
+                });
 
+            } else {
+                return this.setAlertMessage(
+                    `Invalid: Your Habbo motto doesn't match the verification code below.`,
+                    `Your current Habbo motto is: ${HabboUser.motto}`,
+                );
+            }
 
+        } catch (error) {
+            console.error('Error verifying user:', error);
+            this.setAlertMessage(`Error verifying user:`, '');
         }
-
-        if (HabboUser.motto !== this.state.habboMottoVerifyCode) {
-            return this.setAlertMessage(
-                `Invalid: Your Habbo motto doesn't match the verification code below.`,
-                `Your current Habbo motto is: ${HabboUser.motto}`,
-            );
-        }
-
-
     }
 
     setAlertMessage(message: string = '', motto: string = '') {
-        this.setState({ alertMessage: message });
-        this.setState({ currentMotto: motto });
+        this.setState({ alertMessage: message, currentMotto: motto });
     }
 
     generateHabCloudVerifyCode() {
@@ -93,16 +103,19 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
 
     async HabboAPIVerifyUser(username: string) {
         try {
-            const response = await fetch(
-                `https://www.habbo.com/api/public/Users?name=${username.trim()}`,
-            );
+            const response = await fetch(`https://www.habbo.com/api/public/Users?name=${username.trim()}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');
             }
             const responseData = await response.json();
+
+            if (responseData === null) {
+                throw new Error('User not found');
+            }
+
             return responseData;
         } catch (error) {
-            console.error('Error fetching user data:', error);
+            this.setAlertMessage(`User not found.`, ``);
         }
     }
 
@@ -202,6 +215,26 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
                                 </div>
                             </div>
                         )}
+                        {this.state.changeUsername && (
+                            <div className={styles.info}>
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        style={{ fill: 'rgba(255, 255, 255, 1)' }}
+                                    >
+                                        <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                        <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    To verify, please type your Habbo username and copy/paste the code above into
+                                    your Habbo motto to change your HabCloud username.
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             );
@@ -224,11 +257,20 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
                 </>
             );
         }
+        if (this.state.verification && this.state.changeUsername) {
+            return (
+                <>
+
+                    <ChangeUsernameForm {...{ habboName: this.state.habboName } as ChangeUsernameFormProps} />
+
+                </>
+            );
+        }
 
     }
 }
 
-class Alert extends React.Component<{ message: string; motto: string }> {
+class Alert extends React.Component<{ message?: string; motto?: string }> {
     render() {
         if (!this.props.message) return null;
         if (!this.props.motto) return null;

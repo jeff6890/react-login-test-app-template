@@ -66,8 +66,6 @@ export class SignupForm extends React.Component {
         this.setAlertMessage(error.message);
       }
     });
-
-    console.log(this.state.habboName);
   }
 
   setAlertMessage(message: string) {
