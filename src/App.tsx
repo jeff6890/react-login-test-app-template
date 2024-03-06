@@ -33,12 +33,16 @@ function App() {
                         <li>
                             <Link to='reset'>Password Reset</Link>
                         </li>
-                        <li>
-                            <Link to='dashboard'>Dashboard</Link>
-                        </li>
-                        <li>
-                            <Link to='changeusername'>Change Username</Link>
-                        </li>
+                        {Userfront.accessToken() && (
+                            <>
+                                <li>
+                                    <Link to='dashboard'>Dashboard</Link>
+                                </li>
+                                <li>
+                                    <Link to='changeusername'>Change Username</Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </nav>
                 <Routes>
