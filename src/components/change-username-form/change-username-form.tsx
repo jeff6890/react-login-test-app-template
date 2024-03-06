@@ -18,6 +18,7 @@ export class ChangeUsernameForm extends React.Component {
             accountName: '',
             alertMessage: '',
             habboName: props.habboName,
+            success: false,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -43,6 +44,9 @@ export class ChangeUsernameForm extends React.Component {
 
         //Call this.changeUsernameAPI()
         this.changeUsernameAPI()
+
+        //Set this.state.success to true
+        this.setState({ success: true });
 
         // Call Userfront.user.update()
         // Userfront.user.update({
@@ -120,9 +124,11 @@ export class ChangeUsernameForm extends React.Component {
                                     <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
                                 </svg>
                             </div>
-                            <button type="submit" className={styles.btn}>
-                                Change Username
-                            </button>
+                            {!this.state.success && (
+                                <button type="submit" className={styles.btn}>
+                                    Change Username
+                                </button>
+                            )}
                         </form>
                     </div>
                     <div className={styles.success}>
@@ -132,10 +138,17 @@ export class ChangeUsernameForm extends React.Component {
                                 <path d="m15.742 10.71-1.408-1.42-3.331 3.299-1.296-1.296-1.414 1.414 2.704 2.704z"></path>
                             </svg>
                         </div>
-                        <div>
-                            Verification successful, you can now update your HabCloud username.
-                            Your HabCloud username will update to match your current Habbo username.
-                        </div>
+                        {!this.state.success && (
+                            <div>
+                                Verification successful, you can now update your HabCloud username.
+                                Your HabCloud username will update to match your current Habbo username.
+                            </div>
+                        )}
+                        {this.state.success && (
+                            <div>
+                                Your HabCloud username was successfully updated.
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
