@@ -1,8 +1,8 @@
 .App {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100vw;
+  // background-image: url('https://pbs.twimg.com/media/FdrCw5TXEAIdi2H.png:large');
+  // background-color: transparent;
+  background: linear-gradient(180deg, #f5ab82 0%, #bce4d8 100%);
 }
 
 .logo {
@@ -48,4 +48,36 @@
 
 .read-the-docs {
   color: #888;
+}
+.menu {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 30px;
+}
+.menuItems {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  text-align: start;
+  column-gap: 10px;
+  color: #fff;
+}
+.link {
+  color: #fff;
+  &:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+  }
+  padding: 15px;
+  border-radius: 10px;
+}
+.hotel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
