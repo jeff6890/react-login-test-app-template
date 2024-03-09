@@ -13,7 +13,6 @@ export interface UserDashboardProps {
  * To create custom component templates, see https://help.codux.com/kb/en/article/kb16522
  */
 export const UserDashboard = ({ className }: UserDashboardProps) => {
-
     if (!Userfront.accessToken()) {
         return <Navigate to={{ pathname: '/login' }} />;
     }
@@ -21,12 +20,37 @@ export const UserDashboard = ({ className }: UserDashboardProps) => {
     return (
         <div className={styles.dashboard}>
             <div className={styles.sideMenu}>
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                    <li>Item 5</li>
+                <ul className={styles.sideMenuItems}>
+                    <li>
+                        <Link to="/" className={styles.link}>
+                            Profile
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/" className={styles.link}>
+                            User API
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/" className={styles.link}>
+                            Marketplace API
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/" className={styles.link}>
+                            Friends API
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/" className={styles.link}>
+                            Groups API
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/" className={styles.link}>
+                            Rooms API
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <div className={styles.dashboardPanel}>
@@ -70,3 +94,4 @@ export const UserDashboard = ({ className }: UserDashboardProps) => {
 //         <LogoutButton />
 //     </div>
 // );
+

@@ -150,27 +150,27 @@ function App() {
     );
 }
 
-const Home = () => (
+export const Home = () => (
     <div>
         <VerifyUserForm signUp={true} />
     </div>
 );
-const Login = () => (
+export const Login = () => (
     <div>
         <LoginForm />
     </div>
 );
-const PasswordReset = () => (
+export const PasswordReset = () => (
     <div>
         <VerifyUserForm passwordReset={true} />
     </div>
 );
-const ChangeUsername = () => (
+export const ChangeUsername = () => (
     <div>
         <VerifyUserForm changeUsername={true} />
     </div>
 );
-const Dashboard = () => {
+export const Dashboard = () => {
     return (
         <div>
             <UserDashboard />
