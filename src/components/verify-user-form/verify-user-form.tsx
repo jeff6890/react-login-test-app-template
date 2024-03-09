@@ -131,7 +131,9 @@ export class VerifyUserForm extends React.Component<VerifyUserFormProps, {
                         <Alert message={this.state.alertMessage} motto={this.state.currentMotto} />
                         <div className={styles.wrapper}>
                             <form onSubmit={this.handleSubmit}>
-                                <h1>Verify Habbo User</h1>
+                                {this.state.signUp && (<h1>Sign Up</h1>)}
+                                {this.state.changeUsername && (<h1>Change Username</h1>)}
+                                {this.state.passwordReset && (<h1>Password Reset</h1>)}
                                 <div className={styles['input-box']}>
                                     <input
                                         name="habboUsername"

@@ -1,55 +1,25 @@
 .App {
   width: 100vw;
-  // background-image: url('https://pbs.twimg.com/media/FdrCw5TXEAIdi2H.png:large');
-  // background-color: transparent;
-  background: repeat padding-box border-box 0% 0% / auto auto scroll
-    radial-gradient(circle at 50% 50%, #0d1409 0%, #64b6e1 100%) #7d3636;
+  background-image: radial-gradient(circle at 50% 50%, #bce4d8 0%, #f5ab82 100%);
+  background-color: transparent;
+  background-position: 0% 0%;
+  background-size: auto auto;
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-origin: padding-box;
+  background-clip: border-box;
+  font-family: 'Quicksand', sans-serif;
 }
 
-.logo {
-  padding: 1.25em;
-  will-change: filter;
-  transition: filter 300ms;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-.logo.ts:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.logo.scss:hover {
-  filter: drop-shadow(0 0 2em #cc6698aa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
 .menu {
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -62,10 +32,12 @@
   justify-content: space-around;
   align-items: center;
   margin-top: 0px;
-  margin-right: 10px;
+  margin-right: 15px;
   margin-bottom: 0px;
-  margin-left: 10px;
+  margin-left: 15px;
+  font-family: 'Quicksand', sans-serif;
 }
+
 .menuItems {
   list-style-type: none;
   display: flex;
@@ -73,28 +45,56 @@
   text-align: start;
   column-gap: 10px;
   color: #fff;
+  font-family: 'Quicksand', sans-serif;
 }
+
 .link {
   color: #fff;
+
   &:hover {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding: 15px;
   }
+
   padding: 15px;
   border-radius: 10px;
+  font-family: 'Quicksand', sans-serif;
 }
+
 .hotel {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-image: radial-gradient(circle at 50% 50%, #f5ab82 0%, #bce4d8 100%);
+  background-image: radial-gradient(circle at 50% 50%, #bce4d8 0%, #f5ab82 100%);
   background-color: transparent;
-  background-position: 0%;
-  background-size: auto;
+  background-position: 0% 0%;
+  background-size: auto auto;
   background-repeat: repeat;
   background-attachment: scroll;
   background-origin: padding-box;
   background-clip: border-box;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 50px;
+}
+
+.navbkg {
+  background-image: radial-gradient(circle at 50% 50%, #bce4d8 0%, #f5ab82 100%);
+  background-color: transparent;
+  background-position: 0% 0%;
+  background-size: auto auto;
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-origin: padding-box;
+  background-clip: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.title {
+  font-size: 36px;
+  color: #fff;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
 }
