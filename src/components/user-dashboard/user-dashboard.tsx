@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import styles from './user-dashboard.module.scss';
 import Userfront from '@userfront/toolkit/react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { LogoutButton } from '../logout-button/logout-button';
 
 export interface UserDashboardProps {
@@ -20,46 +20,83 @@ export const UserDashboard = ({ className }: UserDashboardProps) => {
     return (
         <div className={styles.dashboard}>
             <div className={styles.sideMenu}>
-                <ul className={styles.sideMenuItems}>
-                    <li>
-                        <Link to="/" className={styles.link}>
-                            Profile
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" className={styles.link}>
-                            User API
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" className={styles.link}>
-                            Marketplace API
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" className={styles.link}>
-                            Friends API
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" className={styles.link}>
-                            Groups API
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/" className={styles.link}>
-                            Rooms API
-                        </Link>
-                    </li>
-                </ul>
+                <div>
+                    <h2>Dashboard</h2>
+                </div>
+                <div>
+                    <ul className={styles.sideMenuItems}>
+                        <li>
+                            <Link to="profile" className={styles.link}>
+                                Profile
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="userAPI" className={styles.link}>
+                                User API
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="marketplaceAPI" className={styles.link}>
+                                Marketplace API
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="friendsAPI" className={styles.link}>
+                                Friends API
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="groupsAPI" className={styles.link}>
+                                Groups API
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="roomsAPI" className={styles.link}>
+                                Rooms API
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div className={styles.dashboardPanel}>
-                <h2>Dashboard</h2>
-                <LogoutButton />
+                <Outlet />
             </div>
         </div>
     );
 };
+
+// export const Profile = () => (
+//     <>
+//         <h2>Profile</h2>
+//         <h3>{Userfront.user.name}</h3>
+//         <LogoutButton />
+//     </>
+// );
+export const UserAPI = () => (
+    <>
+        <h2>User API</h2>
+    </>
+);
+export const MarketplaceAPI = () => (
+    <>
+        <h2>Marketplace API</h2>
+    </>
+);
+export const FriendsAPI = () => (
+    <>
+        <h2>Friends API</h2>
+    </>
+);
+export const GroupsAPI = () => (
+    <>
+        <h2>Groups API</h2>
+    </>
+);
+export const RoomsAPI = () => (
+    <>
+        <h2>Rooms API</h2>
+    </>
+);
 
 // const [privateData, setPrivateData] = useState<{ someSecretData: string }>();
 

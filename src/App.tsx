@@ -6,6 +6,12 @@ import { LoginForm } from './components/login-form/login-form';
 import { VerifyUserForm } from './components/verify-user-form/verify-user-form';
 import { UserDashboard } from './components/user-dashboard/user-dashboard';
 import Userfront from '@userfront/toolkit/react';
+import { Profile } from './components/profile/profile';
+import { UserAPI } from './components/user-dashboard/user-dashboard';
+import { MarketplaceAPI } from './components/user-dashboard/user-dashboard';
+import { FriendsAPI } from './components/user-dashboard/user-dashboard';
+import { GroupsAPI } from './components/user-dashboard/user-dashboard';
+import { RoomsAPI } from './components/user-dashboard/user-dashboard';
 
 Userfront.init('7n88yrpn');
 
@@ -142,8 +148,15 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/reset" element={<PasswordReset />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/changeusername" element={<ChangeUsername />} />
+                    <Route path="/dashboard" element={<Dashboard />}>
+                        <Route path="/dashboard/profile" element={<Profile />} />
+                        <Route path="/dashboard/userAPI" element={<UserAPI />} />
+                        <Route path="/dashboard/marketplaceAPI" element={<MarketplaceAPI />} />
+                        <Route path="/dashboard/friendsAPI" element={<FriendsAPI />} />
+                        <Route path="/dashboard/groupsAPI" element={<GroupsAPI />} />
+                        <Route path="/dashboard/roomsAPI" element={<RoomsAPI />} />
+                    </Route>
                 </Routes>
             </Router>
         </div>
