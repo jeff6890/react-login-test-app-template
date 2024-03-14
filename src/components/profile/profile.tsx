@@ -73,76 +73,108 @@ export const Profile = ({ className }: ProfileProps) => {
                 <div>
                     <h2>Profile</h2><LogoutButton />
                 </div>
-                <div>
-                    <img
-                        src={`https://www.habbo.com/habbo-imaging/avatarimage?direction=3&head_direction=3&action=wav&gesture=sml&size=l&user=${publicHabboUser.user?.name}&timestamp=${Date.now()}`}
-                        alt=""
-                    />
+                <div className={styles.profilePhotoName}>
+                    <div>
+                        <img
+                            src={`https://www.habbo.com/habbo-imaging/avatarimage?direction=3&head_direction=3&action=wav&gesture=sml&size=l&user=${publicHabboUser.user?.name}&timestamp=${Date.now()}`}
+                            alt=""
+                        />
+                    </div>
+                    <div>
+                        <h1>{publicHabboUser.user?.name}</h1>
+                    </div>
                 </div>
-                <div>
-                    <h1>{publicHabboUser.user?.name}</h1>
-                </div>
-                <div>User ID: {publicHabboUser.user?.uniqueId}</div>
-                <div>
-                    Profile Hidden: {publicHabboUser.user?.profileVisible ? 'No' : 'Yes'}
-                </div>
-                <div>Online: {publicHabboUser.user?.online ? 'Yes' : 'No'}</div>
-                <div>
-                    Last Login:{' '}
-                    {new Date(
-                        publicHabboUser.user?.lastAccessTime
-                    ).toLocaleString()}
-                </div>
-                <div>Current Level: {publicHabboUser.user?.currentLevel}</div>
-                <div>Total Experience: {publicHabboUser.user?.totalExperience}</div>
-                <div>Star Gem Count: {publicHabboUser.user?.starGemCount}</div>
-                <div>
-                    Current Level Complete:{' '}
-                    {`${Math.round(
-                        publicHabboUser.user?.currentLevelCompletePercent || 0
-                    )}%`}
-                </div>
-                <div>Motto: {publicHabboUser.user?.motto}</div>
-                <div>
-                    Member Since:{' '}
-                    {new Date(publicHabboUser.user?.memberSince).toLocaleString()}
-                </div>
-                <div>
-                    {publicHabboUser.user?.selectedBadges &&
-                        publicHabboUser.user?.selectedBadges[0] && (
-                            <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[0].code}.gif`}
-                                alt=""
-                            />
-                        )}
-                    {publicHabboUser.user?.selectedBadges &&
-                        publicHabboUser.user?.selectedBadges[1] && (
-                            <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[1].code}.gif`}
-                                alt=""
-                            />
-                        )}
-                    {publicHabboUser.user?.selectedBadges &&
-                        publicHabboUser.user?.selectedBadges[2] && (
-                            <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[2].code}.gif`}
-                                alt=""
-                            />
-                        )}
-                    {publicHabboUser.user?.selectedBadges &&
-                        publicHabboUser.user?.selectedBadges[3] && (
-                            <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[3].code}.gif`}
-                                alt=""
-                            />
-                        )}
-                    {publicHabboUser.user?.selectedBadges &&
-                        publicHabboUser.user?.selectedBadges[4] && (
-                            <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[4].code}.gif`}
-                                alt=""
-                            />
-                        )}
+                <div className={styles.profilePanels}>
+                    <div className={styles.profilePanel}>
+                        <div>
+                            <h2>User Info</h2>
+                        </div>
+                        <div>User ID: {publicHabboUser.user?.uniqueId}</div>
+                        <div>
+                            Profile Hidden: {publicHabboUser.user?.profileVisible ? 'No' : 'Yes'}
+                        </div>
+                        <div>Online: {publicHabboUser.user?.online ? 'Yes' : 'No'}</div>
+                        <div>
+                            Last Login:{' '}
+                            {new Date(
+                                publicHabboUser.user?.lastAccessTime
+                            ).toLocaleString()}
+                        </div>
+                        <div>Current Level: {publicHabboUser.user?.currentLevel}</div>
+                        <div>Total Experience: {publicHabboUser.user?.totalExperience}</div>
+                        <div>Star Gem Count: {publicHabboUser.user?.starGemCount}</div>
+                        <div>
+                            Current Level Complete:{' '}
+                            {`${Math.round(
+                                publicHabboUser.user?.currentLevelCompletePercent || 0
+                            )}%`}
+                        </div>
+                        <div>Motto: {publicHabboUser.user?.motto}</div>
+                        <div>
+                            Member Since:{' '}
+                            {new Date(publicHabboUser.user?.memberSince).toLocaleString()}
+                        </div>
+                    </div>
+
+                    <div className={styles.profilePanel}>
+                        <div>
+                            <div>
+                                {publicHabboUser.user?.selectedBadges &&
+                                    publicHabboUser.user?.selectedBadges[0] && (
+                                        <div>
+                                            <img
+                                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[0].code}.gif`}
+                                                alt=""
+                                            />
+                                        </div>
+                                    )}
+                            </div>
+                            <div>
+                                {publicHabboUser.user?.selectedBadges &&
+                                    publicHabboUser.user?.selectedBadges[1] && (
+                                        <div>
+                                            <img
+                                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[1].code}.gif`}
+                                                alt=""
+                                            />
+                                        </div>
+                                    )}
+                            </div>
+                            <div>
+                                {publicHabboUser.user?.selectedBadges &&
+                                    publicHabboUser.user?.selectedBadges[2] && (
+                                        <div>
+                                            <img
+                                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[2].code}.gif`}
+                                                alt=""
+                                            />
+                                        </div>
+                                    )}
+                            </div>
+                            <div>
+                                {publicHabboUser.user?.selectedBadges &&
+                                    publicHabboUser.user?.selectedBadges[3] && (
+                                        <div>
+                                            <img
+                                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[3].code}.gif`}
+                                                alt=""
+                                            />
+                                        </div>
+                                    )}
+                            </div>
+                            <div>
+                                {publicHabboUser.user?.selectedBadges &&
+                                    publicHabboUser.user?.selectedBadges[4] && (
+                                        <div>
+                                            <img
+                                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[4].code}.gif`}
+                                                alt=""
+                                            />
+                                        </div>
+                                    )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <h4>User Photos:</h4>

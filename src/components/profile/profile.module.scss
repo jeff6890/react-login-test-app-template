@@ -3,6 +3,36 @@
     height: 100%;
 }
 
+.profilePhotoName {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.profilePanel {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px 20px;
+
+    // display: grid;
+    // grid-template-columns: repeat(3, 1fr);
+    // gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profilePanels {
+    display: flex;
+    column-gap: 50px;
+    width: 100vw;
+    height: 100vh;
+}
+
 .photosGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -10,12 +40,18 @@
 }
 
 .photo {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: black;
+    // padding: 10px;
+    // background-color: #f9f9f9;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    // color: black;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px 20px;
+
 }
 
 .photoDesc {
