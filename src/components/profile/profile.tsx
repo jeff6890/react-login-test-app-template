@@ -14,23 +14,37 @@ export interface ProfileProps {
  */
 export const Profile = ({ className }: ProfileProps) => {
 
-    const [privateHabboUser, setprivateHabboUser] = useState(null);
-    const [userPhotos, setUserPhotos] = useState([]);
+    const [privateHabboUser, setPrivateHabboUser] = useState<any>(null);
+    const [publicHabboUser, setPublicHabboUser] = useState<any>(null);
+    const [userPhotos, setUserPhotos] = useState<any[]>([]);
+
 
     useEffect(() => {
-        const fetchHabboUser = async (username: string) => {
-            try {
-                const response = await fetch(`https://www.habbo.com/api/public/Users?name=${Userfront.user.name}`);
-                const data = await response.json();
-                setprivateHabboUser(data);
-            } catch (error) {
-                console.error('Error fetching Habbo user:', error);
-                setprivateHabboUser(null);
+        const fetchUserData = async () => {
+            const userResult = await fetch(
+                `https://www.habbo.com/api/public/Users?name=${Userfront.user.name.trim()}`
+            );
+            const userData = await userResult.json();
+
+            setPrivateHabboUser(userData);
+
+            if (userData.profileVisible && userData.uniqueId) {
+                try {
+                    const profileResult = await fetch(
+                        `https://www.habbo.com/api/public/users/${userData.uniqueId}/profile`
+                    );
+                    const profileData = await profileResult.json();
+                    setPublicHabboUser(profileData);
+                } catch (error) {
+                    setPublicHabboUser(null);
+                }
             }
         };
 
-        fetchHabboUser(Userfront.user.name);
+        fetchUserData();
+
     }, []);
+
 
     useEffect(() => {
         const fetchUserPhotos = async () => {
@@ -56,98 +70,104 @@ export const Profile = ({ className }: ProfileProps) => {
 
         return (
             <>
-                <h1>{publicHabboUser.user?.name}</h1>
-                <div>User ID: {publicHabboUser.user.uniqueId}</div>
                 <div>
-                    Profile Hidden: {publicHabboUser.profileVisible ? 'No' : 'Yes'}
+                    <h2>Profile</h2><LogoutButton />
                 </div>
-                <div>Online: {publicHabboUser.user.online ? 'Yes' : 'No'}</div>
+                <div>
+                    <img
+                        src={`https://www.habbo.com/habbo-imaging/avatarimage?direction=3&head_direction=3&action=wav&gesture=sml&size=l&user=${publicHabboUser.user?.name}&timestamp=${Date.now()}`}
+                        alt=""
+                    />
+                </div>
+                <div>
+                    <h1>{publicHabboUser.user?.name}</h1>
+                </div>
+                <div>User ID: {publicHabboUser.user?.uniqueId}</div>
+                <div>
+                    Profile Hidden: {publicHabboUser.user?.profileVisible ? 'No' : 'Yes'}
+                </div>
+                <div>Online: {publicHabboUser.user?.online ? 'Yes' : 'No'}</div>
                 <div>
                     Last Login:{' '}
                     {new Date(
-                        publicHabboUser.user.lastAccessTime
+                        publicHabboUser.user?.lastAccessTime
                     ).toLocaleString()}
                 </div>
-                <div>Current Level: {publicHabboUser.user.currentLevel}</div>
-                <div>Total Experience: {publicHabboUser.user.totalExperience}</div>
-                <div>Star Gem Count: {publicHabboUser.user.starGemCount}</div>
+                <div>Current Level: {publicHabboUser.user?.currentLevel}</div>
+                <div>Total Experience: {publicHabboUser.user?.totalExperience}</div>
+                <div>Star Gem Count: {publicHabboUser.user?.starGemCount}</div>
                 <div>
                     Current Level Complete:{' '}
                     {`${Math.round(
                         publicHabboUser.user?.currentLevelCompletePercent || 0
                     )}%`}
                 </div>
-
-                <img
-                    src={`https://www.habbo.com/habbo-imaging/avatarimage?user=${publicHabboUser.user?.name}&direction=3&head_direction=3&gesture=nor&action=wav&size=l&format=.gif`}
-                    alt=""
-                />
-                <div>Motto: {publicHabboUser.user.motto}</div>
+                <div>Motto: {publicHabboUser.user?.motto}</div>
                 <div>
                     Member Since:{' '}
-                    {new Date(publicHabboUser.user.memberSince).toLocaleString()}
+                    {new Date(publicHabboUser.user?.memberSince).toLocaleString()}
                 </div>
                 <div>
-                    {publicHabboUser.user.selectedBadges &&
-                        publicHabboUser.user.selectedBadges[0] && (
+                    {publicHabboUser.user?.selectedBadges &&
+                        publicHabboUser.user?.selectedBadges[0] && (
                             <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user.selectedBadges[0].code}.gif`}
+                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[0].code}.gif`}
                                 alt=""
                             />
                         )}
-                    {publicHabboUser.user.selectedBadges &&
-                        publicHabboUser.user.selectedBadges[1] && (
+                    {publicHabboUser.user?.selectedBadges &&
+                        publicHabboUser.user?.selectedBadges[1] && (
                             <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user.selectedBadges[1].code}.gif`}
+                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[1].code}.gif`}
                                 alt=""
                             />
                         )}
-                    {publicHabboUser.user.selectedBadges &&
-                        publicHabboUser.user.selectedBadges[2] && (
+                    {publicHabboUser.user?.selectedBadges &&
+                        publicHabboUser.user?.selectedBadges[2] && (
                             <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user.selectedBadges[2].code}.gif`}
+                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[2].code}.gif`}
                                 alt=""
                             />
                         )}
-                    {publicHabboUser.user.selectedBadges &&
-                        publicHabboUser.user.selectedBadges[3] && (
+                    {publicHabboUser.user?.selectedBadges &&
+                        publicHabboUser.user?.selectedBadges[3] && (
                             <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user.selectedBadges[3].code}.gif`}
+                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[3].code}.gif`}
                                 alt=""
                             />
                         )}
-                    {publicHabboUser.user.selectedBadges &&
-                        publicHabboUser.user.selectedBadges[4] && (
+                    {publicHabboUser.user?.selectedBadges &&
+                        publicHabboUser.user?.selectedBadges[4] && (
                             <img
-                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user.selectedBadges[4].code}.gif`}
+                                src={`http://images.habbo.com/c_images/album1584/${publicHabboUser.user?.selectedBadges[4].code}.gif`}
                                 alt=""
                             />
                         )}
                 </div>
+
                 <h4>User Photos:</h4>
 
                 <div className={styles.photosGrid}>
                     {userPhotos.map((photo, index) => (
-                        <div className={styles.photo}>
+                        <div className={styles.photo} key={index}>
                             <img
-                                key={index}
-                                src={photo.previewUrl}
+                                src={photo?.previewUrl}
                                 alt={`User Photo ${index + 1}`}
                             />
                             <div className={styles.photoDesc}>
                                 <div className={styles.photoCreator}>
                                     <img
-                                        src={`https://www.habbo.com/habbo-imaging/avatarimage?user=${photo.creator_name}&headonly=1&size=b&gesture=sml&direction=2&head_direction=2&action=std`}
+                                        src={`https://www.habbo.com/habbo-imaging/avatarimage?user=${photo?.creator_name}&headonly=1&size=b&gesture=sml&direction=2&head_direction=2&action=std&timestamp=${Date.now()}`}
                                         alt=""
                                     />
-                                    <h6>{photo.creator_name}</h6>
+                                    <div>{photo?.creator_name}</div>
                                 </div>
 
-                                <p>Likes: {photo.likes.length}</p>
+                                <div>Likes: {photo?.likes.length}</div>
                             </div>
-                            <h7 className={styles.photoDate}>
-                                {new Date(photo.time).toLocaleString()}
-                            </h7>
+                            <div className={styles.photoDate}>
+                                {new Date(photo?.time).toLocaleString()}
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -165,7 +185,7 @@ export const Profile = ({ className }: ProfileProps) => {
                 </div>
                 <div>
                     <img
-                        src={`https://www.habbo.com/habbo-imaging/avatarimage?user=${privateHabboUser?.name}&direction=3&head_direction=3&gesture=nor&action=wav&size=l&format=.gif`}
+                        src={`https://www.habbo.com/habbo-imaging/avatarimage?direction=3&head_direction=3&action=wav&gesture=sml&size=l&user=${privateHabboUser?.name}&timestamp=${Date.now()}`}
                         alt=""
                     />
                 </div>
@@ -218,17 +238,29 @@ export const Profile = ({ className }: ProfileProps) => {
                     <h4>User Photos:</h4>
                 </div>
 
-                <div>
-                    <section className={styles.photosGrid}>
-                        {userPhotos.map((photo, index) => (
-                            <div key={index} className={styles.photo}>
-                                <img
-                                    src={photo.previewUrl}
-                                    alt={`User Photo ${index + 1}`}
-                                />
+                <div className={styles.photosGrid}>
+                    {userPhotos.map((photo, index) => (
+                        <div className={styles.photo} key={index}>
+                            <img
+                                src={photo?.previewUrl}
+                                alt={`User Photo ${index + 1}`}
+                            />
+                            <div className={styles.photoDesc}>
+                                <div className={styles.photoCreator}>
+                                    <img
+                                        src={`https://www.habbo.com/habbo-imaging/avatarimage?user=${photo?.creator_name}&headonly=1&size=b&gesture=sml&direction=2&head_direction=2&action=std&timestamp=${Date.now()}`}
+                                        alt=""
+                                    />
+                                    <div>{photo?.creator_name}</div>
+                                </div>
+
+                                <div>Likes: {photo?.likes.length}</div>
                             </div>
-                        ))}
-                    </section>
+                            <div className={styles.photoDate}>
+                                {new Date(photo?.time).toLocaleString()}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </>
         );
