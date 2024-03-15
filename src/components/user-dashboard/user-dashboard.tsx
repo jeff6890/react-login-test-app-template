@@ -26,34 +26,52 @@ export const UserDashboard = ({ className }: UserDashboardProps) => {
                 <div>
                     <ul className={styles.sideMenuItems}>
                         <li>
-                            <Link to="profile" className={styles.link}>
-                                Profile
-                            </Link>
+                            <div className={styles.sideMenuLinks}>
+                                <img src="https://www.habborator.org/archive/icons/medium/me_outfit_head_extra_inactive.gif" alt="" />
+                                <Link to="profile" className={styles.link}>
+                                    Profile
+                                </Link>
+                            </div>
                         </li>
                         <li>
-                            <Link to="userAPI" className={styles.link}>
-                                User API
-                            </Link>
+                            <div className={styles.sideMenuLinks}>
+                                <img src="https://www.habborator.org/archive/icons/medium/me_effects_inactive.gif" alt="" />
+                                <Link to="userAPI" className={styles.link}>
+                                    User API
+                                </Link>
+                            </div>
                         </li>
                         <li>
-                            <Link to="marketplaceAPI" className={styles.link}>
-                                Marketplace API
-                            </Link>
+                            <div className={styles.sideMenuLinks}>
+                                <img src="https://www.habborator.org/archive/icons/medium/me_credits_inactive.gif" alt="" />
+                                <Link to="marketplaceAPI" className={styles.link}>
+                                    Marketplace API
+                                </Link>
+                            </div>
                         </li>
                         <li>
-                            <Link to="friendsAPI" className={styles.link}>
-                                Friends API
-                            </Link>
+                            <div className={styles.sideMenuLinks}>
+                                <img src="https://www.habborator.org/archive/icons/medium/me_dance_inactive.gif" alt="" />
+                                <Link to="friendsAPI" className={styles.link}>
+                                    Friends API
+                                </Link>
+                            </div>
                         </li>
                         <li>
-                            <Link to="groupsAPI" className={styles.link}>
-                                Groups API
-                            </Link>
+                            <div className={styles.sideMenuLinks}>
+                                <img src="https://www.habborator.org/archive/icons/medium/me_HC_inactive.gif" alt="" />
+                                <Link to="groupsAPI" className={styles.link}>
+                                    Groups API
+                                </Link>
+                            </div>
                         </li>
                         <li>
-                            <Link to="roomsAPI" className={styles.link}>
-                                Rooms API
-                            </Link>
+                            <div className={styles.sideMenuLinks}>
+                                <img src="https://www.habborator.org/archive/icons/medium/me_rooms_inactive.gif" alt="" />
+                                <Link to="roomsAPI" className={styles.link}>
+                                    Rooms API
+                                </Link>
+                            </div>
                         </li>
                     </ul>
                 </div>
